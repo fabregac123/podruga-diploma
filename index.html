@@ -42,18 +42,14 @@
             background-size: 400% 400%;
             padding: 5px;
             border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(255,107,157,0.4), 0 0 80px rgba(255,215,0,0.3), 0 0 120px rgba(192,132,252,0.2);
+            box-shadow: 0 20px 60px rgba(255,107,157,0.4), 0 0 80px rgba(255,215,0,0.3);
             animation: borderGlow 3s ease-in-out infinite, borderShift 5s linear infinite;
         }
         @keyframes borderGlow {
             0%,100% { box-shadow: 0 20px 60px rgba(255,107,157,0.4), 0 0 80px rgba(255,215,0,0.3); }
-            50% { box-shadow: 0 20px 80px rgba(255,107,157,0.6), 0 0 120px rgba(255,215,0,0.5), 0 0 160px rgba(192,132,252,0.3); }
+            50% { box-shadow: 0 20px 80px rgba(255,107,157,0.6), 0 0 120px rgba(255,215,0,0.5); }
         }
-        @keyframes borderShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @keyframes borderShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
         .diploma-inner {
             background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
             border-radius: 26px;
@@ -64,38 +60,31 @@
         }
         .stars-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
         .star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle 3s ease-in-out infinite; }
-        @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+        @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
         .crown-icon { font-size: 60px; animation: crownBounce 1s ease-in-out infinite; display: inline-block; }
-        @keyframes crownBounce { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-15px) scale(1.1); } }
-        .diploma-title { font-family: 'Pacifico', cursive; font-size: 24px; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.5), 0 0 40px rgba(255,107,157,0.3); margin: 8px 0 3px; }
-        .diploma-subtitle { font-family: 'Montserrat', sans-serif; font-size: 11px; color: #ff6b9d; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; }
+        @keyframes crownBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .diploma-title { font-family: 'Pacifico', cursive; font-size: 24px; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.5); margin: 8px 0 3px; }
+        .diploma-subtitle { font-family: 'Montserrat', sans-serif; font-size: 11px; color: #ff6b9d; letter-spacing: 4px; margin-bottom: 15px; }
         .divider { width: 80%; height: 1px; background: linear-gradient(90deg, transparent, #ff6b9d, #ffd700, #c084fc, transparent); margin: 0 auto 15px; }
         .award-text { font-size: 16px; color: #c4b5fd; margin-bottom: 3px; }
-        .friend-name { font-family: 'Pacifico', cursive; font-size: 38px; color: #fff; text-shadow: 0 0 30px rgba(255,107,157,0.8), 0 0 60px rgba(255,215,0,0.4); margin: 8px 0; animation: nameGlow 2s ease-in-out infinite; }
-        @keyframes nameGlow { 0%,100% { text-shadow: 0 0 30px rgba(255,107,157,0.8); } 50% { text-shadow: 0 0 50px rgba(255,215,0,0.9), 0 0 80px rgba(255,107,157,0.6); } }
+        .friend-name { font-family: 'Pacifico', cursive; font-size: 38px; color: #fff; text-shadow: 0 0 30px rgba(255,107,157,0.8); margin: 8px 0; }
         .knows-text { font-size: 15px; color: #94a3b8; }
-        .creator-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; color: #ff6b9d; text-shadow: 0 0 15px rgba(255,107,157,0.4); margin: 5px 0 12px; }
+        .creator-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; color: #ff6b9d; margin: 5px 0 12px; }
         .score-container { position: relative; width: 150px; height: 150px; margin: 15px auto; }
         .score-circle {
             width: 100%; height: 100%; border-radius: 50%;
             background: conic-gradient(#ffd700 0deg, #ff6b9d calc(var(--sd)*1deg), #c084fc calc(var(--sd)*1deg), #2a2a4a calc(var(--sd)*1deg));
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 50px rgba(255,107,157,0.3), 0 0 100px rgba(255,215,0,0.2);
         }
         .score-inner { width: 120px; height: 120px; border-radius: 50%; background: #1a1a2e; display: flex; align-items: center; justify-content: center; flex-direction: column; }
         .score-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 48px; background: linear-gradient(135deg, #ffd700, #ff6b9d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .score-percent { font-size: 18px; color: #ffd700; font-weight: 700; }
         .status-badge {
             display: inline-block;
-            background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(255,215,0,0.2), rgba(192,132,252,0.2));
-            border: 2px solid rgba(255,215,0,0.4);
-            border-radius: 30px;
-            padding: 10px 25px;
-            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px;
+            background: rgba(255,107,157,0.2); border: 2px solid rgba(255,215,0,0.4); border-radius: 30px;
+            padding: 10px 25px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px;
             color: #ffd700; margin: 12px 0;
-            animation: statusPulse 2s ease-in-out infinite;
         }
-        @keyframes statusPulse { 0%,100% { border-color: rgba(255,215,0,0.4); transform: scale(1); } 50% { border-color: rgba(255,215,0,0.8); transform: scale(1.05); } }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; text-align: left; }
         .stat-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 12px; }
         .stat-emoji { font-size: 28px; margin-bottom: 4px; }
@@ -109,19 +98,11 @@
         .share-btn {
             display: inline-block;
             background: linear-gradient(135deg, #ff6b9d, #c084fc);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 15px;
-            animation: btnPulse 2s ease-in-out infinite;
-            box-shadow: 0 5px 20px rgba(255,107,157,0.4);
+            color: white; border: none; border-radius: 25px;
+            padding: 12px 30px; font-family: 'Montserrat', sans-serif;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            margin-top: 15px; box-shadow: 0 5px 20px rgba(255,107,157,0.4);
         }
-        @keyframes btnPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .share-btn:active { transform: scale(0.95); }
     </style>
 </head>
@@ -171,21 +152,18 @@
         tg.ready();
         tg.expand();
         tg.setHeaderColor('#1a1a2e');
-        tg.setBackgroundColor('#ff9a9e');
 
-        // Декодируем URL параметры
-        function decodeParam(param) {
-            try { return decodeURIComponent(param || ''); } catch(e) { return param; }
-        }
+        function decodeParam(p) { try { return decodeURIComponent(p||''); } catch(e) { return p; } }
 
         const params = new URLSearchParams(window.location.search);
-        const score = parseInt(params.get('score')) || 0;
-        const friendName = decodeParam(params.get('friend')) || 'Подруга';
-        const creatorName = decodeParam(params.get('creator')) || 'Создатель';
-        const totalQuestions = parseInt(params.get('total')) || 10;
-        const correctAnswers = parseInt(params.get('correct')) || 0;
-        const status = decodeParam(params.get('status')) || 'ПОДРУГИ';
-        const prediction = decodeParam(params.get('prediction')) || 'Вы отличные подруги!';
+        const score = parseInt(params.get('score'))||0;
+        const friendName = decodeParam(params.get('friend'))||'Подруга';
+        const creatorName = decodeParam(params.get('creator'))||'Создатель';
+        const totalQuestions = parseInt(params.get('total'))||10;
+        const correctAnswers = parseInt(params.get('correct'))||0;
+        const status = decodeParam(params.get('status'))||'ПОДРУГИ';
+        const prediction = decodeParam(params.get('prediction'))||'Вы отличные подруги!';
+        const testId = params.get('test_id')||'0';
 
         document.getElementById('friendName').textContent = friendName;
         document.getElementById('creatorName').textContent = creatorName;
@@ -194,59 +172,38 @@
         document.getElementById('correctAnswers').textContent = correctAnswers;
         document.getElementById('statusBadge').textContent = status;
         document.getElementById('predictionText').textContent = prediction;
-        
-        const level = score >= 90 ? 'ЭКСПЕРТ 👑' : score >= 70 ? 'ПРОФИ 💎' : score >= 50 ? 'ЗНАЕТ 🌸' : score >= 30 ? 'УЧИТСЯ 🌱' : 'НОВИЧОК 🦋';
-        document.getElementById('levelText').textContent = level;
-        
-        const stars = score >= 90 ? 5 : score >= 70 ? 4 : score >= 50 ? 3 : score >= 30 ? 2 : 1;
-        document.getElementById('ratingStars').textContent = '★'.repeat(stars) + '☆'.repeat(5 - stars);
-        document.getElementById('certNumber').textContent = '#DF' + Date.now().toString(36).toUpperCase().slice(-8);
-        document.getElementById('scoreCircle').style.setProperty('--sd', score * 3.6);
+        document.getElementById('levelText').textContent = score>=90?'ЭКСПЕРТ 👑':score>=70?'ПРОФИ 💎':score>=50?'ЗНАЕТ 🌸':score>=30?'УЧИТСЯ 🌱':'НОВИЧОК 🦋';
+        document.getElementById('ratingStars').textContent='★'.repeat(score>=90?5:score>=70?4:score>=50?3:score>=30?2:1)+'☆'.repeat(score>=90?0:score>=70?1:score>=50?2:score>=30?3:4);
+        document.getElementById('certNumber').textContent='#DF'+Date.now().toString(36).toUpperCase().slice(-8);
+        document.getElementById('scoreCircle').style.setProperty('--sd',score*3.6);
 
-        // Падающие эмодзи
-        const emojis = ['💕','💖','💗','💝','✨','💫','🌸','🦋','💎','👑','🎀','💐','🌟','🪷','💞','🎉','🎊','💘','💌','💟'];
-        const container = document.getElementById('hearts');
-        for (let i = 0; i < 40; i++) {
-            const h = document.createElement('span');
-            h.className = 'heart';
-            h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-            h.style.left = Math.random()*100+'%';
-            h.style.fontSize = (18+Math.random()*30)+'px';
-            h.style.animationDuration = (4+Math.random()*8)+'s';
-            h.style.animationDelay = Math.random()*8+'s';
-            container.appendChild(h);
-        }
+        // Эмодзи
+        const emojis=['💕','💖','💗','💝','✨','💫','🌸','🦋','💎','👑','🎀','💐','🌟','💞','🎉'];
+        const container=document.getElementById('hearts');
+        for(let i=0;i<40;i++){const h=document.createElement('span');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'%';h.style.fontSize=(18+Math.random()*30)+'px';h.style.animationDuration=(4+Math.random()*8)+'s';h.style.animationDelay=Math.random()*8+'s';container.appendChild(h);}
 
         // Звёзды
-        const starsBg = document.getElementById('stars');
-        for (let i = 0; i < 60; i++) {
-            const s = document.createElement('div');
-            s.className = 'star-dot';
-            s.style.left = Math.random()*100+'%';
-            s.style.top = Math.random()*100+'%';
-            s.style.width = (1+Math.random()*3)+'px';
-            s.style.height = s.style.width;
-            s.style.animationDelay = Math.random()*3+'s';
-            starsBg.appendChild(s);
-        }
+        const sb=document.getElementById('stars');
+        for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star-dot';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.width=(1+Math.random()*3)+'px';s.style.height=s.style.width;s.style.animationDelay=Math.random()*3+'s';sb.appendChild(s);}
 
-        // Конфетти при высоком балле
-        if (score >= 50) {
-            const colors = ['#ffd700','#ff6b9d','#c084fc','#4ade80','#60a5fa','#fbbf24','#ff9a9e','#a18cd1'];
-            const style = document.createElement('style');
-            style.textContent = '@keyframes cf{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(110vh) rotate('+(720+Math.random()*720)+'deg) scale(0);opacity:0}}';
-            document.head.appendChild(style);
-            for (let i=0;i<80;i++){setTimeout(()=>{const c=document.createElement('div');c.style.cssText='position:fixed;top:-20px;left:'+Math.random()*100+'%;width:'+(6+Math.random()*10)+'px;height:'+(6+Math.random()*10)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:'+(Math.random()>0.5?'50%':'2px')+';z-index:999;animation:cf '+(2+Math.random()*3)+'s ease-in forwards;pointer-events:none';document.body.appendChild(c);setTimeout(()=>c.remove(),4000)},i*25)}
-        }
+        // Конфетти
+        if(score>=50){const colors=['#ffd700','#ff6b9d','#c084fc','#4ade80','#60a5fa','#fbbf24'];const st=document.createElement('style');st.textContent='@keyframes cf{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}';document.head.appendChild(st);for(let i=0;i<80;i++){setTimeout(()=>{const c=document.createElement('div');c.style.cssText='position:fixed;top:-20px;left:'+Math.random()*100+'%;width:'+(6+Math.random()*10)+'px;height:'+(6+Math.random()*10)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:'+(Math.random()>0.5?'50%':'2px')+';z-index:999;animation:cf '+(2+Math.random()*3)+'s ease-in forwards;pointer-events:none';document.body.appendChild(c);setTimeout(()=>c.remove(),4000)},i*25)}}
 
-        // Поделиться
+        // Поделиться - отправляем данные боту
         function shareDiploma() {
-            const text = `💕 Я прошла тест и получила диплом дружбы!\n👤 ${friendName} знает ${creatorName} на ${score}%\n🏆 Статус: ${status}\n\nПройди и ты: https://t.me/PodrugaTestBot`;
-            if (navigator.share) {
-                navigator.share({ title: 'Диплом дружбы 💕', text: text });
-            } else {
-                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent(text)}`);
-            }
+            // Отправляем данные боту через WebApp.sendData
+            tg.sendData(JSON.stringify({
+                action: 'share_diploma',
+                friend: friendName,
+                creator: creatorName,
+                score: score,
+                status: status,
+                prediction: prediction,
+                test_id: testId,
+                total: totalQuestions,
+                correct: correctAnswers
+            }));
+            tg.close();
         }
     </script>
 </body>
