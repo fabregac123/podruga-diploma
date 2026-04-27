@@ -191,19 +191,8 @@
 
         // Поделиться - отправляем данные боту
         function shareDiploma() {
-            // Отправляем данные боту через WebApp.sendData
-            tg.sendData(JSON.stringify({
-                action: 'share_diploma',
-                friend: friendName,
-                creator: creatorName,
-                score: score,
-                status: status,
-                prediction: prediction,
-                test_id: testId,
-                total: totalQuestions,
-                correct: correctAnswers
-            }));
-            tg.close();
+            const shareText = `💕 Я прошла тест и получила диплом дружбы!\n👤 ${friendName} знает ${creatorName} на ${score}%\n🏆 Статус: ${status}\n\n🌟 Пройди и ты: https://t.me/PodrugaTestBot?start=test_${testId}`;
+            tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent(shareText)}`);
         }
     </script>
 </body>
