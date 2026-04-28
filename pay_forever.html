@@ -203,7 +203,7 @@
         }
 
         function goToPayment() {
-            const shopId = 'ВАШ_SHOP_ID';
+            const shopId = '1337862';
             const userId = new URLSearchParams(window.location.search).get('user_id') || '0';
             window.location.href = `https://yoomoney.ru/quickpay/confirm?receiver=${shopId}&sum=499&label=forever_${userId}_365&successURL=https://t.me/PodrugaTestBot`;
         }
