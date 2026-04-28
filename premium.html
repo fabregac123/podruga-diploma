@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Золотой диплом 👑</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Pacifico&family=Montserrat:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #0f0f23);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            overflow-x: hidden;
+        }
+        .sparkles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .sparkle { position: absolute; animation: sparkleFloat 4s ease-in-out infinite; font-size: 20px; }
+        @keyframes sparkleFloat {
+            0%,100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-20px) scale(1.5); opacity: 1; }
+        }
+        .diploma-wrapper { position: relative; z-index: 1; width: 100%; max-width: 400px; }
+        .diploma-border {
+            background: linear-gradient(135deg, #ffd700, #ffaa00, #ffd700, #ffcc00, #ffd700);
+            background-size: 400% 400%;
+            padding: 4px;
+            border-radius: 28px;
+            box-shadow: 0 0 60px rgba(255,215,0,0.6), 0 0 120px rgba(255,215,0,0.3);
+            animation: goldenGlow 2s ease-in-out infinite, borderShift 4s linear infinite;
+        }
+        @keyframes goldenGlow {
+            0%,100% { box-shadow: 0 0 60px rgba(255,215,0,0.6); }
+            50% { box-shadow: 0 0 80px rgba(255,215,0,0.9), 0 0 160px rgba(255,215,0,0.5); }
+        }
+        @keyframes borderShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .diploma-inner {
+            background: linear-gradient(180deg, #1a1a0a, #0f0f05, #0a0a00);
+            border-radius: 24px;
+            padding: 20px 14px 22px;
+            text-align: center;
+            position: relative;
+        }
+        .premium-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .crown-icon { font-size: 60px; animation: crownFloat 2s ease-in-out infinite; display: inline-block; }
+        @keyframes crownFloat {
+            0%,100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+        .diploma-title { font-family: 'Pacifico', cursive; font-size: 22px; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.6); margin: 6px 0 2px; }
+        .diploma-subtitle { font-size: 9px; color: #ffcc00; letter-spacing: 3px; margin-bottom: 10px; }
+        .divider { width: 80%; height: 2px; background: linear-gradient(90deg, transparent, #ffd700, #ffaa00, transparent); margin: 10px auto; }
+        .award-text { font-size: 13px; color: #ffd700; }
+        .friend-name { font-family: 'Pacifico', cursive; font-size: 32px; color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.8); margin: 4px 0; line-height: 1.2; }
+        .knows-text { font-size: 12px; color: #ffcc00; }
+        .creator-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 18px; color: #ffd700; margin: 2px 0 6px; }
+        .score-container { width: 120px; height: 120px; margin: 8px auto; }
+        .score-circle {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(#ffd700 0deg, #ffaa00 calc(var(--sd)*1deg), #1a1a0a calc(var(--sd)*1deg));
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 40px rgba(255,215,0,0.5);
+        }
+        .score-inner { width: 96px; height: 96px; border-radius: 50%; background: #1a1a0a; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .score-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 38px; color: #ffd700; }
+        .score-percent { font-size: 14px; color: #ffd700; font-weight: 700; }
+        .status-badge {
+            display: inline-block; background: rgba(255,215,0,0.15); border: 2px solid #ffd700;
+            border-radius: 25px; padding: 8px 18px; font-weight: 700; font-size: 13px; color: #ffd700; margin: 6px 0;
+        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 8px 0; }
+        .stat-item { background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.15); border-radius: 12px; padding: 8px; }
+        .stat-emoji { font-size: 20px; }
+        .stat-label { font-size: 8px; color: #ffcc00; }
+        .stat-value { font-weight: 700; font-size: 15px; color: #ffd700; }
+        .prediction-box { background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.15); border-radius: 14px; padding: 8px; margin: 6px 0; }
+        .prediction-title { font-size: 10px; color: #ffd700; letter-spacing: 2px; }
+        .prediction-text { font-size: 11px; color: #ffcc00; line-height: 1.5; }
+        .cert-number { font-size: 8px; color: #ffaa00; margin-top: 6px; letter-spacing: 2px; }
+        .share-btn {
+            display: block; width: 100%; max-width: 400px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000; border: none; border-radius: 18px;
+            padding: 14px; font-size: 16px; font-weight: 900;
+            cursor: pointer; box-shadow: 0 5px 30px rgba(255,215,0,0.5);
+            position: relative; z-index: 2;
+        }
+        .share-btn:active { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="diploma-wrapper" id="diplomaCapture">
+        <div class="diploma-border">
+            <div class="diploma-inner">
+                <div class="premium-badge">👑 PREMIUM</div>
+                <div class="crown-icon">👑</div>
+                <div class="diploma-title">ЗОЛОТОЙ СЕРТИФИКАТ</div>
+                <div class="diploma-subtitle">✨ премиум дружба ✨</div>
+                <div class="divider"></div>
+                <div class="award-text">🌟 Этот золотой сертификат подтверждает, что</div>
+                <div class="friend-name" id="friendName">Подруга</div>
+                <div class="knows-text">✨ знает ✨</div>
+                <div class="creator-name" id="creatorName">Создатель</div>
+                <div class="knows-text">на</div>
+                <div class="score-container">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-inner">
+                            <div class="score-number" id="scoreNumber">85</div>
+                            <div class="score-percent">%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-badge" id="statusBadge">👑 ЛУЧШИЕ ПОДРУГИ</div>
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-emoji">📝</div><div class="stat-label">Вопросов</div><div class="stat-value" id="totalQuestions">10</div></div>
+                    <div class="stat-item"><div class="stat-emoji">✅</div><div class="stat-label">Правильно</div><div class="stat-value" id="correctAnswers">8</div></div>
+                    <div class="stat-item"><div class="stat-emoji">🏆</div><div class="stat-label">Уровень</div><div class="stat-value" id="levelText">ПРОФИ</div></div>
+                    <div class="stat-item"><div class="stat-emoji">⭐</div><div class="stat-label">Рейтинг</div><div class="stat-value" id="ratingStars">★★★★☆</div></div>
+                </div>
+                <div class="prediction-box">
+                    <div class="prediction-title">🔮 ПРЕДСКАЗАНИЕ</div>
+                    <div class="prediction-text" id="predictionText">Вы отличные подруги! 💕</div>
+                </div>
+                <div class="cert-number" id="certNumber">#GOLD000000</div>
+            </div>
+        </div>
+    </div>
+    <button class="share-btn" onclick="captureAndShare()">📤 ПОДЕЛИТЬСЯ ЗОЛОТЫМ ДИПЛОМОМ</button>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready(); tg.expand();
+        tg.setHeaderColor('#0a0a00');
+        const params = new URLSearchParams(window.location.search);
+        const score = parseInt(params.get('score'))||0;
+        const friendName = decodeURIComponent(params.get('friend')||'Подруга');
+        const creatorName = decodeURIComponent(params.get('creator')||'Создатель');
+        const totalQuestions = parseInt(params.get('total'))||10;
+        const correctAnswers = parseInt(params.get('correct'))||0;
+        const status = decodeURIComponent(params.get('status')||'ПОДРУГИ');
+        const prediction = decodeURIComponent(params.get('prediction')||'Вы отличные подруги! 💕');
+        document.getElementById('friendName').textContent = friendName;
+        document.getElementById('creatorName').textContent = creatorName;
+        document.getElementById('scoreNumber').textContent = score;
+        document.getElementById('totalQuestions').textContent = totalQuestions;
+        document.getElementById('correctAnswers').textContent = correctAnswers;
+        document.getElementById('statusBadge').textContent = status;
+        document.getElementById('predictionText').textContent = prediction;
+        document.getElementById('levelText').textContent = score>=90?'ЭКСПЕРТ 👑':score>=70?'ПРОФИ 💎':score>=50?'ЗНАЕТ 🌸':score>=30?'УЧИТСЯ 🌱':'НОВИЧОК 🦋';
+        document.getElementById('ratingStars').textContent='★'.repeat(score>=90?5:score>=70?4:score>=50?3:score>=30?2:1)+'☆'.repeat(score>=90?0:score>=70?1:score>=50?2:score>=30?3:4);
+        document.getElementById('certNumber').textContent='#GOLD'+Date.now().toString(36).toUpperCase().slice(-8);
+        document.getElementById('scoreCircle').style.setProperty('--sd',score*3.6);
+        const sparkles=['✨','⭐','💫','🌟','💛'];
+        const c=document.getElementById('sparkles');
+        for(let i=0;i<25;i++){const s=document.createElement('span');s.className='sparkle';s.textContent=sparkles[Math.floor(Math.random()*sparkles.length)];s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*4+'s';s.style.fontSize=(14+Math.random()*18)+'px';c.appendChild(s);}
+        async function captureAndShare() {
+            const btn = document.querySelector('.share-btn');
+            btn.textContent = '⏳ Создаю...'; btn.disabled = true;
+            try {
+                const el = document.getElementById('diplomaCapture');
+                const canvas = await html2canvas(el, { backgroundColor: '#0a0a00', scale: 2 });
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+                const file = new File([blob], 'golden_diploma.png', { type: 'image/png' });
+                const text = '👑 Золотой диплом! '+friendName+' знает '+creatorName+' на '+score+'%\n🏆 '+status+'\n🌟 https://t.me/PodrugaTestBot';
+                if (navigator.share && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ files: [file], title: 'Золотой диплом 👑', text });
+                } else {
+                    tg.openTelegramLink('https://t.me/share/url?url=https://t.me/PodrugaTestBot&text='+encodeURIComponent(text));
+                }
+            } catch(e) {
+                tg.openTelegramLink('https://t.me/share/url?url=https://t.me/PodrugaTestBot&text='+encodeURIComponent('👑 '+friendName+' знает '+creatorName+' на '+score+'%!'));
+            }
+            btn.textContent = '📤 ПОДЕЛИТЬСЯ ЗОЛОТЫМ ДИПЛОМОМ'; btn.disabled = false;
+        }
+    </script>
+</body>
+</html>
