@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Оплата Premium 💎</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Pacifico&family=Montserrat:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+        .sparkles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .sparkle { position: absolute; animation: float 3s ease-in-out infinite; font-size: 16px; }
+        @keyframes float {
+            0%,100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-15px) scale(1.3); opacity: 0.8; }
+        }
+
+        .container { position: relative; z-index: 1; width: 100%; max-width: 380px; }
+
+        .card {
+            background: linear-gradient(180deg, #1e1e3a 0%, #1a1a30 100%);
+            border-radius: 30px;
+            padding: 30px 20px 25px;
+            text-align: center;
+            border: 2px solid rgba(255,215,0,0.3);
+            box-shadow: 0 20px 60px rgba(255,107,157,0.2), 0 0 80px rgba(255,215,0,0.1);
+            animation: cardGlow 3s ease-in-out infinite;
+        }
+        @keyframes cardGlow {
+            0%,100% { box-shadow: 0 20px 60px rgba(255,107,157,0.2); }
+            50% { box-shadow: 0 20px 80px rgba(255,215,0,0.3), 0 0 120px rgba(255,107,157,0.2); }
+        }
+
+        .crown { font-size: 50px; animation: bounce 1.5s ease-in-out infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+        .title {
+            font-family: 'Pacifico', cursive;
+            font-size: 26px;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+            margin: 10px 0 5px;
+        }
+        .subtitle {
+            font-size: 11px;
+            color: #ff6b9d;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .divider {
+            width: 70%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ffd700, #ff6b9d, transparent);
+            margin: 15px auto;
+        }
+        .tariff-icon { font-size: 40px; margin: 10px 0; }
+        .tariff-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #c084fc;
+            margin-bottom: 5px;
+        }
+        .tariff-desc {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .price-box {
+            background: rgba(255,215,0,0.05);
+            border: 2px solid rgba(255,215,0,0.2);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .price {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 48px;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255,215,0,0.4);
+        }
+        .price span { font-size: 22px; }
+        .price-old {
+            font-size: 14px;
+            color: #64748b;
+            text-decoration: line-through;
+            margin-top: 3px;
+        }
+
+        .features {
+            text-align: left;
+            margin: 15px 0;
+            padding: 0 10px;
+        }
+        .feature {
+            font-size: 13px;
+            color: #c4b5fd;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature span { font-size: 16px; }
+
+        .pay-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            padding: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            margin: 15px 0 10px;
+            box-shadow: 0 8px 30px rgba(255,215,0,0.4);
+            letter-spacing: 1px;
+            transition: transform 0.15s;
+        }
+        .pay-btn:active { transform: scale(0.96); }
+        .pay-btn:disabled { opacity: 0.6; transform: none; }
+
+        .secure-text {
+            font-size: 10px;
+            color: #64748b;
+            margin: 8px 0 15px;
+        }
+        .secure-text span { color: #4ade80; }
+
+        .back-link {
+            display: block;
+            color: #ff6b9d;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 99;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .loading-overlay.active { display: flex; }
+        .loading-spinner {
+            width: 50px; height: 50px;
+            border: 4px solid rgba(255,215,0,0.2);
+            border-top-color: #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            color: #ffd700;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="crown">👑</div>
+            <div class="title">Premium</div>
+            <div class="subtitle">✨ официальная оплата ✨</div>
+            <div class="divider"></div>
+
+            <div class="tariff-icon" id="tariffIcon">🎮</div>
+            <div class="tariff-name" id="tariffName">Загрузка...</div>
+            <div class="tariff-desc" id="tariffDesc"></div>
+
+            <div class="price-box">
+                <div class="price" id="price">--<span>₽</span></div>
+                <div class="price-old" id="priceOld"></div>
+            </div>
+
+            <div class="features" id="features"></div>
+
+            <button class="pay-btn" id="payBtn" onclick="goToPayment()">
+                💳 Оплатить
+            </button>
+
+            <div class="secure-text">
+                <span>🔒</span> Безопасный платёж через ЮKassa
+            </div>
+
+            <a href="https://t.me/PodrugaTestBot" class="back-link">← Вернуться в бот</a>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Перенаправляем на оплату...</div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const tariff = params.get('tariff') || 'test';
+        const userId = params.get('user_id') || '0';
+        const days = parseInt(params.get('days')) || 0;
+        const price = parseInt(params.get('price')) || 0;
+
+        const data = {
+            '1test': { icon: '🎮', name: 'На 1 тест', desc: 'Открыть ответы на 1 тест', old: '', features: ['📊 Ответы подруг','🎓 Золотой диплом','⏱ Доступ на 1 час'] },
+            '24h': { icon: '📅', name: 'На 24 часа', desc: 'Премиум на целый день!', old: '99₽', features: ['♾️ Безлимитные тесты','📊 Ответы подруг','🎓 Золотой диплом','👥 Битвы до 10 подруг'] },
+            'week': { icon: '💎', name: 'На неделю', desc: 'Стань главной подругой!', old: '199₽', features: ['♾️ Безлимитные тесты','📊 Ответы подруг','🎓 Золотой диплом','👥 Битвы до 10 подруг','💬 Чат после битвы','⭐ Бейдж Эксперт'] },
+            'forever': { icon: '👑', name: 'Навсегда', desc: 'Королева тестов!', old: '999₽', features: ['ВСЁ что выше +','💖 Статус навсегда','👑 Бейдж Королевы','🎁 Приоритетная поддержка','💎 Эксклюзивные тесты'] }
+        };
+
+        const d = data[tariff] || data['1test'];
+
+        document.getElementById('tariffIcon').textContent = d.icon;
+        document.getElementById('tariffName').textContent = d.name;
+        document.getElementById('tariffDesc').textContent = d.desc;
+        document.getElementById('price').innerHTML = price + '<span>₽</span>';
+        document.getElementById('priceOld').textContent = d.old ? d.old : '';
+
+        const featDiv = document.getElementById('features');
+        d.features.forEach(f => {
+            featDiv.innerHTML += `<div class="feature"><span>✨</span> ${f}</div>`;
+        });
+
+        // Sparkles
+        const emojis = ['✨','💫','⭐','💛','🪙','💎'];
+        const c = document.getElementById('sparkles');
+        for(let i=0;i<20;i++){
+            const s=document.createElement('span');
+            s.className='sparkle';
+            s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+            s.style.left=Math.random()*100+'%';
+            s.style.top=Math.random()*100+'%';
+            s.style.animationDelay=Math.random()*3+'s';
+            c.appendChild(s);
+        }
+
+        function goToPayment() {
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('payBtn').disabled = true;
+
+            // РЕДИРЕКТ НА YOOKASSA
+            const shopId = 'ВАШ_SHOP_ID';
+            const paymentUrl = `https://yoomoney.ru/quickpay/confirm?receiver=${shopId}&sum=${price}&label=${tariff}_${userId}_${days}&successURL=https://t.me/PodrugaTestBot`;
+
+            setTimeout(() => {
+                window.location.href = paymentUrl;
+            }, 800);
+        }
+    </script>
+</body>
+</html>
