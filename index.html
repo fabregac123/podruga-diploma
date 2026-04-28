@@ -184,7 +184,7 @@
                     tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent(text)}`);
                 }
             } catch(e) {
-                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent('💕 '+friendName+' знает '+creatorName+' на '+score+'%!')}`);
+                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent('💕 Я прошла тест! ' + friendName + ' знает ' + creatorName + ' на ' + score + '%! Пройди: https://t.me/PodrugaTestBot')}`);
             }
             btn.textContent = '📤 ПОДЕЛИТЬСЯ ДИПЛОМОМ'; btn.disabled = false;
         }
