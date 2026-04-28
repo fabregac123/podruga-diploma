@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Диплом дружбы 💕</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -13,71 +13,91 @@
             font-family: 'Comfortaa', cursive;
             background: linear-gradient(135deg, #ff9a9e, #fecfef, #a18cd1);
             min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 10px; overflow-x: hidden;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            overflow-x: hidden;
         }
         .hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .heart { position: absolute; animation: fall linear infinite; }
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity:0; }
+            10% { opacity:0.8; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
         }
-        .diploma-container { position: relative; z-index: 1; width: 100%; max-width: 420px; }
+
+        .diploma-wrapper { position: relative; z-index: 1; width: 100%; max-width: 400px; }
+
         .diploma-border {
             background: linear-gradient(135deg, #ffd700, #ff6b9d, #ffd700, #c084fc, #ffd700);
-            padding: 4px; border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(255,107,157,0.5);
+            background-size: 300% 300%;
+            padding: 3px;
+            border-radius: 28px;
+            box-shadow: 0 10px 40px rgba(255,107,157,0.5);
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        @keyframes borderGlow {
+            0%,100% { box-shadow: 0 10px 40px rgba(255,107,157,0.5); }
+            50% { box-shadow: 0 10px 60px rgba(255,215,0,0.6); }
         }
         .diploma-inner {
             background: linear-gradient(180deg, #1a1a2e, #16213e, #0f0f23);
-            border-radius: 26px; padding: 25px 18px 30px; text-align: center;
+            border-radius: 25px;
+            padding: 18px 14px 20px;
+            text-align: center;
         }
-        .crown-icon { font-size: 55px; animation: bounce 1s infinite; }
-        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        .diploma-title { font-family: 'Pacifico', cursive; font-size: 24px; color: #ffd700; margin: 10px 0 5px; }
-        .diploma-subtitle { font-size: 11px; color: #ff6b9d; letter-spacing: 4px; margin-bottom: 15px; }
-        .divider { width: 80%; height: 1px; background: linear-gradient(90deg, transparent, #ff6b9d, #ffd700, transparent); margin: 15px auto; }
-        .award-text { font-size: 15px; color: #c4b5fd; }
-        .friend-name { font-family: 'Pacifico', cursive; font-size: 36px; color: #fff; text-shadow: 0 0 30px rgba(255,107,157,0.8); margin: 8px 0; }
-        .knows-text { font-size: 14px; color: #94a3b8; }
-        .creator-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: #ff6b9d; margin: 5px 0 10px; }
-        .score-container { width: 140px; height: 140px; margin: 15px auto; }
+        .crown-icon { font-size: 45px; animation: bounce 1s infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .diploma-title { font-family: 'Pacifico', cursive; font-size: 20px; color: #ffd700; margin: 6px 0 2px; }
+        .diploma-subtitle { font-size: 9px; color: #ff6b9d; letter-spacing: 3px; margin-bottom: 10px; }
+        .divider { width: 80%; height: 1px; background: linear-gradient(90deg, transparent, #ff6b9d, #ffd700, transparent); margin: 10px auto; }
+        .award-text { font-size: 13px; color: #c4b5fd; }
+        .friend-name { font-family: 'Pacifico', cursive; font-size: 30px; color: #fff; text-shadow: 0 0 25px rgba(255,107,157,0.7); margin: 4px 0; line-height: 1.2; word-break: break-word; }
+        .knows-text { font-size: 12px; color: #94a3b8; }
+        .creator-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 18px; color: #ff6b9d; margin: 2px 0 6px; word-break: break-word; }
+        .score-container { width: 110px; height: 110px; margin: 8px auto; }
         .score-circle {
             width: 100%; height: 100%; border-radius: 50%;
             background: conic-gradient(#ffd700 0deg, #ff6b9d calc(var(--sd)*1deg), #2a2a4a calc(var(--sd)*1deg));
             display: flex; align-items: center; justify-content: center;
         }
-        .score-inner { width: 112px; height: 112px; border-radius: 50%; background: #1a1a2e; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-        .score-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 44px; background: linear-gradient(135deg, #ffd700, #ff6b9d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .score-percent { font-size: 16px; color: #ffd700; font-weight: 700; }
+        .score-inner { width: 88px; height: 88px; border-radius: 50%; background: #1a1a2e; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .score-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 34px; background: linear-gradient(135deg, #ffd700, #ff6b9d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .score-percent { font-size: 13px; color: #ffd700; font-weight: 700; }
         .status-badge {
-            display: inline-block; background: rgba(255,107,157,0.2); border: 2px solid rgba(255,215,0,0.4);
-            border-radius: 30px; padding: 10px 22px; font-weight: 700; font-size: 14px; color: #ffd700; margin: 12px 0;
+            display: inline-block; background: rgba(255,107,157,0.15); border: 2px solid rgba(255,215,0,0.35);
+            border-radius: 25px; padding: 7px 16px; font-weight: 700; font-size: 12px; color: #ffd700; margin: 6px 0;
+            max-width: 100%; word-break: break-word;
         }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; text-align: left; }
-        .stat-item { background: rgba(255,255,255,0.04); border-radius: 16px; padding: 12px; }
-        .stat-emoji { font-size: 26px; }
-        .stat-label { font-size: 10px; color: #94a3b8; }
-        .stat-value { font-weight: 700; font-size: 18px; color: #fff; }
-        .prediction-box { background: rgba(192,132,252,0.08); border: 1px solid rgba(192,132,252,0.2); border-radius: 20px; padding: 12px; margin: 12px 0; }
-        .prediction-title { font-size: 12px; color: #c084fc; margin-bottom: 6px; }
-        .prediction-text { font-size: 13px; color: #e2e8f0; line-height: 1.6; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 8px 0; }
+        .stat-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 8px; }
+        .stat-emoji { font-size: 20px; }
+        .stat-label { font-size: 8px; color: #94a3b8; }
+        .stat-value { font-weight: 700; font-size: 15px; color: #fff; }
+        .prediction-box { background: rgba(192,132,252,0.06); border: 1px solid rgba(192,132,252,0.15); border-radius: 14px; padding: 8px; margin: 6px 0; }
+        .prediction-title { font-size: 10px; color: #c084fc; letter-spacing: 2px; }
+        .prediction-text { font-size: 11px; color: #e2e8f0; line-height: 1.5; word-break: break-word; }
+        .cert-number { font-size: 8px; color: #64748b; margin-top: 6px; }
+
+        /* Кнопка внутри диплома */
         .share-btn {
-            display: block; width: 100%;
+            display: block; width: 100%; max-width: 400px;
             background: linear-gradient(135deg, #ff6b9d, #c084fc);
-            color: white; border: none; border-radius: 25px;
-            padding: 14px; font-size: 18px; font-weight: 700;
-            cursor: pointer; margin-top: 15px;
-            box-shadow: 0 5px 20px rgba(255,107,157,0.4);
+            color: white; border: none; border-radius: 18px;
+            padding: 13px; font-size: 16px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 5px 20px rgba(255,107,157,0.35);
+            position: relative; z-index: 2;
         }
         .share-btn:active { transform: scale(0.97); }
-        .cert-number { font-size: 9px; color: #64748b; letter-spacing: 2px; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="hearts-container" id="hearts"></div>
-    <div class="diploma-container" id="diplomaCapture">
+
+    <!-- Диплом -->
+    <div class="diploma-wrapper" id="diplomaCapture">
         <div class="diploma-border">
             <div class="diploma-inner">
                 <div class="crown-icon">👑</div>
@@ -108,10 +128,14 @@
                     <div class="prediction-title">🔮 ПРЕДСКАЗАНИЕ</div>
                     <div class="prediction-text" id="predictionText">Вы отличные подруги! 💕</div>
                 </div>
+                <div class="cert-number" id="certNumber">#DF000000</div>
             </div>
         </div>
     </div>
-    <button class="share-btn" onclick="captureAndShare()" style="position:relative;z-index:2;max-width:420px;margin-top:15px;">📤 ПОДЕЛИТЬСЯ ДИПЛОМОМ</button>
+
+    <!-- Кнопка поделиться -->
+    <button class="share-btn" onclick="captureAndShare()">📤 ПОДЕЛИТЬСЯ ДИПЛОМОМ</button>
+
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
@@ -124,7 +148,7 @@
         const totalQuestions = parseInt(params.get('total'))||10;
         const correctAnswers = parseInt(params.get('correct'))||0;
         const status = decodeURIComponent(params.get('status')||'ПОДРУГИ');
-        const prediction = decodeURIComponent(params.get('prediction')||'Вы отличные подруги!');
+        const prediction = decodeURIComponent(params.get('prediction'))||'Вы отличные подруги!';
         const testId = params.get('test_id')||'0';
 
         document.getElementById('friendName').textContent = friendName;
@@ -132,55 +156,37 @@
         document.getElementById('scoreNumber').textContent = score;
         document.getElementById('totalQuestions').textContent = totalQuestions;
         document.getElementById('correctAnswers').textContent = correctAnswers;
-        document.getElementById('statusBadge').textContent = '👯 '+status;
+        document.getElementById('statusBadge').textContent = status;
         document.getElementById('predictionText').textContent = prediction;
         document.getElementById('levelText').textContent = score>=90?'ЭКСПЕРТ 👑':score>=70?'ПРОФИ 💎':score>=50?'ЗНАЕТ 🌸':score>=30?'УЧИТСЯ 🌱':'НОВИЧОК 🦋';
         document.getElementById('ratingStars').textContent='★'.repeat(score>=90?5:score>=70?4:score>=50?3:score>=30?2:1)+'☆'.repeat(score>=90?0:score>=70?1:score>=50?2:score>=30?3:4);
+        document.getElementById('certNumber').textContent='#DF'+Date.now().toString(36).toUpperCase().slice(-8);
         document.getElementById('scoreCircle').style.setProperty('--sd',score*3.6);
 
-        // Эмодзи фон
         const emojis=['💕','💖','💗','💝','✨','💫','🌸','🦋','💎','👑'];
         const c=document.getElementById('hearts');
-        for(let i=0;i<30;i++){const h=document.createElement('span');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'%';h.style.fontSize=(15+Math.random()*25)+'px';h.style.animationDuration=(5+Math.random()*8)+'s';h.style.animationDelay=Math.random()*8+'s';c.appendChild(h);}
+        for(let i=0;i<25;i++){const h=document.createElement('span');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'%';h.style.fontSize=(14+Math.random()*20)+'px';h.style.animationDuration=(5+Math.random()*6)+'s';h.style.animationDelay=Math.random()*6+'s';c.appendChild(h);}
 
-        // Конфетти
-        if(score>=50){const colors=['#ffd700','#ff6b9d','#c084fc','#4ade80'];const st=document.createElement('style');st.textContent='@keyframes cf{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(100vh) rotate(720deg) scale(0);opacity:0}}';document.head.appendChild(st);for(let i=0;i<60;i++){setTimeout(()=>{const d=document.createElement('div');d.style.cssText='position:fixed;top:-20px;left:'+Math.random()*100+'%;width:'+(5+Math.random()*8)+'px;height:'+(5+Math.random()*8)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';z-index:999;animation:cf '+(2+Math.random()*2)+'s ease-in forwards;pointer-events:none';document.body.appendChild(d);setTimeout(()=>d.remove(),3000)},i*20)}}
+        if(score>=50){const colors=['#ffd700','#ff6b9d','#c084fc'];const st=document.createElement('style');st.textContent='@keyframes cf{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(100vh) rotate(720deg) scale(0);opacity:0}}';document.head.appendChild(st);for(let i=0;i<40;i++){setTimeout(()=>{const d=document.createElement('div');d.style.cssText='position:fixed;top:-20px;left:'+Math.random()*100+'%;width:'+(5+Math.random()*6)+'px;height:'+(5+Math.random()*6)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';z-index:999;animation:cf '+(2+Math.random()*2)+'s ease-in forwards;pointer-events:none';document.body.appendChild(d);setTimeout(()=>d.remove(),3000)},i*20)}}
 
-        // СКРИНШОТ И ШЕРИНГ
         async function captureAndShare() {
             const btn = document.querySelector('.share-btn');
-            btn.textContent = '⏳ Создаю диплом...';
-            btn.disabled = true;
-            
+            btn.textContent = '⏳ Создаю...'; btn.disabled = true;
             try {
-                const element = document.getElementById('diplomaCapture');
-                const canvas = await html2canvas(element, {
-                    backgroundColor: '#1a1a2e',
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true
-                });
-                
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const el = document.getElementById('diplomaCapture');
+                const canvas = await html2canvas(el, { backgroundColor: '#1a1a2e', scale: 2 });
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
                 const file = new File([blob], 'diploma.png', { type: 'image/png' });
-                
-                const shareText = `💕 Я прошла тест и получила диплом дружбы!\n👤 ${friendName} знает ${creatorName} на ${score}%\n🏆 Статус: ${status}\n\n🌟 Пройди и ты: https://t.me/PodrugaTestBot?start=test_${testId}`;
-                
+                const text = `💕 Я прошла тест! ${friendName} знает ${creatorName} на ${score}%\n🏆 ${status}\n🌟 https://t.me/PodrugaTestBot`;
                 if (navigator.share && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: 'Диплом дружбы 💕',
-                        text: shareText
-                    });
+                    await navigator.share({ files: [file], title: 'Диплом 💕', text });
                 } else {
-                    tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot?start=test_${testId}&text=${encodeURIComponent(shareText)}`);
+                    tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent(text)}`);
                 }
             } catch(e) {
-                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot?start=test_${testId}&text=${encodeURIComponent('💕 Я прошла тест! ' + friendName + ' знает ' + creatorName + ' на ' + score + '%')}`);
+                tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/PodrugaTestBot&text=${encodeURIComponent('💕 '+friendName+' знает '+creatorName+' на '+score+'%!')}`);
             }
-            
-            btn.textContent = '📤 ПОДЕЛИТЬСЯ ДИПЛОМОМ';
-            btn.disabled = false;
+            btn.textContent = '📤 ПОДЕЛИТЬСЯ ДИПЛОМОМ'; btn.disabled = false;
         }
     </script>
 </body>
