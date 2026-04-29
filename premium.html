@@ -182,7 +182,7 @@
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
                 const file = new File([blob], 'golden_diploma.png', { type: 'image/png' });
                 var hearts = ''; for(var i=0;i<10;i++) hearts += i<Math.floor(score/10)?'💜':'🤍';
-                const text = '👑 Золотой диплом!\n'+hearts+' '+score+'%\n'+friendName+' знает '+creatorName+'\n🏆 '+status+'\n🌟 https://t.me/PodrugaTestBot';
+                const text = '💕👑 *ЗОЛОТОЙ ДИПЛОМ ДРУЖБЫ* 👑💕\n\n'+hearts+' '+score+'%\n\n✨ '+friendName+' знает '+creatorName+'\n🏆 '+status+'\n\n🌟 Пройди и ты: https://t.me/PodrugaTestBot\n💖 _Присоединяйся к королевам тестов!_';
                 if (navigator.share && navigator.canShare({ files: [file] })) {
                     await navigator.share({ files: [file], title: 'Золотой диплом 👑', text });
                 } else {
