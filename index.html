@@ -177,7 +177,7 @@
                 const canvas = await html2canvas(el, { backgroundColor: '#1a1a2e', scale: 2 });
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
                 const file = new File([blob], 'diploma.png', { type: 'image/png' });
-                var h='';for(var i=0;i<10;i++)h+=i<Math.floor(score/10)?'💜':'🤍';const text='💕 Я прошла тест!\n'+h+' '+score+'%\n'+friendName+' знает '+creatorName+'\n🏆 '+status+'\n🌟 https://t.me/PodrugaTestBot';
+                var h='';for(var i=0;i<10;i++)h+=i<Math.floor(score/10)?'💜':'🤍';const text='💕✨ *ДИПЛОМ ДРУЖБЫ* ✨💕\n\n'+h+' '+score+'%\n\n🌸 '+friendName+' знает '+creatorName+'\n🏆 '+status+'\n\n🌟 Пройди и ты: https://t.me/PodrugaTestBot\n💖 _Узнай кто твоя лучшая подруга!_';
                 if (navigator.share && navigator.canShare({ files: [file] })) {
                     await navigator.share({ files: [file], title: 'Диплом 💕', text });
                 } else {
