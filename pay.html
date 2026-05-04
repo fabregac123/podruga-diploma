@@ -2,61 +2,172 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата 💎</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Оплата Premium 💎</title>
     <style>
-        body { 
-            font-family: -apple-system, sans-serif;
-            display: flex; align-items: center; justify-content: center;
-            min-height: 100vh; margin: 0; padding: 20px;
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Montserrat:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comfortaa', cursive;
             background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px;
         }
+        .container { width: 100%; max-width: 380px; }
         .card {
-            background: white; border-radius: 25px; padding: 30px 20px;
-            text-align: center; max-width: 350px; width: 100%;
+            background: white; border-radius: 30px; padding: 30px 20px; text-align: center;
             box-shadow: 0 20px 60px rgba(255,107,157,0.3);
         }
-        .price { font-size: 56px; font-weight: 900; color: #1a1a2e; }
-        .btn {
-            display: block; width: 100%; background: #6c5ce7; color: white;
-            border: none; border-radius: 15px; padding: 18px; font-size: 18px;
-            font-weight: 700; cursor: pointer; margin: 20px 0; text-decoration: none;
+        .crown { font-size: 55px; margin-bottom: 5px; }
+        .title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; color: #ff6b9d; margin: 5px 0; }
+        .price { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 52px; color: #1a1a2e; margin: 10px 0; }
+        .price span { font-size: 24px; }
+        .tariff-name { font-size: 15px; color: #c084fc; margin-bottom: 15px; }
+
+        .steps {
+            background: #f8f0ff; border-radius: 20px; padding: 18px; margin: 20px 0;
+            text-align: left; font-size: 14px; color: #555; line-height: 2;
         }
+        .steps b { color: #6c5ce7; }
+
+        .phone-box {
+            background: #f0f0f5; border-radius: 18px; padding: 16px;
+            font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900;
+            letter-spacing: 3px; color: #1a1a2e; cursor: pointer; user-select: all;
+            border: 2px dashed #6c5ce7; margin: 15px 0; transition: all 0.2s;
+        }
+        .phone-box:active { background: #e8e8ff; transform: scale(0.98); }
+        .phone-box span { display: block; font-size: 11px; font-weight: 400; color: #999; letter-spacing: 1px; margin-bottom: 5px; }
+
+        .amount-box {
+            font-size: 16px; color: #333; margin: 10px 0; font-weight: 700;
+        }
+
+        .btn {
+            display: block; width: 100%; border: none; border-radius: 18px;
+            padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 17px;
+            font-weight: 700; cursor: pointer; margin: 12px 0; transition: all 0.2s;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-purple { background: #6c5ce7; color: white; }
+        .btn-green { background: #00b894; color: white; }
+        .btn-outline { background: white; color: #6c5ce7; border: 2px solid #6c5ce7; }
+
+        .copied-toast {
+            display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #333; color: white; padding: 12px 25px; border-radius: 25px;
+            font-size: 14px; z-index: 99;
+        }
+        .copied-toast.show { display: block; animation: fadeInOut 2s ease; }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .back-link { display: block; color: #999; text-decoration: none; font-size: 14px; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div style="font-size:50px">👑</div>
-        <div class="price" id="price">--₽</div>
-        <p style="color:#666">Premium доступ</p>
-        <a class="btn" id="payBtn" href="#">💳 Оплатить через СБП</a>
-        <p style="font-size:12px;color:#999;margin-top:15px;">
-            Откроется приложение вашего банка
-        </p>
-        <a href="https://t.me/PodrugaTestBot" style="color:#999;font-size:14px;">← Назад в бот</a>
+    <div class="container">
+        <div class="card">
+            <div class="crown">👑</div>
+            <div class="title">Premium</div>
+            <div class="tariff-name" id="tariffName">Загрузка...</div>
+            <div class="price" id="price">--<span>₽</span></div>
+
+            <div class="steps">
+                <b>📱 Как оплатить:</b><br>
+                ① Нажми на номер ниже чтобы скопировать<br>
+                ② Зайди в приложение <b>любого банка</b><br>
+                ③ Выбери «Перевод по СБП»<br>
+                ④ Вставь номер и сумму<br>
+                ⑤ Нажми <b>«✅ Я оплатил(а)»</b> ниже
+            </div>
+
+            <div class="phone-box" onclick="copyPhone()">
+                <span>📞 Нажми чтобы скопировать ↓</span>
+                8 952 433-02-00
+            </div>
+
+            <div class="amount-box">
+                💰 Сумма: <span id="amount">--₽</span>
+            </div>
+
+            <button class="btn btn-purple" onclick="copyAll()">
+                📋 Скопировать номер и сумму
+            </button>
+
+            <button class="btn btn-green" onclick="confirmPayment()">
+                ✅ Я оплатил(а)
+            </button>
+
+            <div class="copied-toast" id="toast">✅ Скопировано!</div>
+
+            <a href="https://t.me/PodrugaTestBot" class="back-link">← Вернуться в бот</a>
+        </div>
     </div>
+
     <script>
-        const p = new URLSearchParams(location.search);
-        const price = parseInt(p.get('price')) || 0;
-        const tariff = p.get('tariff') || '';
-        const uid = p.get('user_id') || '0';
-        
-        document.getElementById('price').textContent = price + '₽';
-        
-        // Прямая ссылка на оплату через СБП (универсальная)
-        const url = `https://sbp.link/pay?bank=tinkoff&amount=${price}&phone=9524330200`;
-        // Пробуем несколько форматов ссылок
-        const links = [
-            `https://sbp.link/pay?bank=tinkoff&amount=${price}&phone=9524330200`,
-            `https://qr.nspk.ru/transfer?bank=tinkoff&sum=${price}&cur=RUB&phone=9524330200`,
-            `tinkoffbank://transfer?amount=${price}&phone=9524330200`
-        ];
-        document.getElementById('payBtn').href = links[0];
-        // Авто-редирект на первый работающий
-        setTimeout(() => { window.location.href = links[0]; }, 800);
-        
-        // Авто-редирект через 1 секунду
-        setTimeout(() => { window.location.href = url; }, 1000);
+        const params = new URLSearchParams(window.location.search);
+        const tariff = params.get('tariff') || 'test';
+        const userId = params.get('user_id') || '0';
+        const price = parseInt(params.get('price')) || 0;
+
+        const names = {'24h': '📅 На 24 часа', 'week': '💎 На неделю', 'forever': '👑 Навсегда'};
+        document.getElementById('tariffName').textContent = names[tariff] || 'Premium';
+        document.getElementById('price').innerHTML = price + '<span>₽</span>';
+        document.getElementById('amount').textContent = price + '₽';
+
+        const phone = '89524330200';
+        const phoneFormatted = '8 952 433-02-00';
+
+        function copyPhone() {
+            navigator.clipboard.writeText(phone);
+            showToast();
+        }
+
+        function copyAll() {
+            const text = `СБП перевод на 89524330200, сумма ${price}₽`;
+            navigator.clipboard.writeText(text);
+            showToast();
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function confirmPayment() {
+            const btn = document.querySelector('.btn-green');
+            btn.textContent = '⏳ Проверяем...';
+            btn.disabled = true;
+
+            // Отправляем запрос на проверку платежа
+            fetch('http://147.45.216.121:8888', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ user_id: userId, amount: price, tariff: tariff })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    btn.textContent = '✅ Премиум активирован!';
+                    btn.style.background = '#00b894';
+                    setTimeout(() => window.location.href = 'https://t.me/PodrugaTestBot', 1500);
+                } else {
+                    btn.textContent = '❌ Платёж не найден. Попробуй позже';
+                    btn.style.background = '#ff6b6b';
+                    btn.disabled = false;
+                }
+            })
+            .catch(() => {
+                btn.textContent = '⚠️ Напиши @fabregac123';
+                btn.style.background = '#ffa502';
+                btn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
