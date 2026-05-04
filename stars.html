@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Оплата Premium 💎</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Pacifico&family=Montserrat:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px;
+        }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; animation: twinkle 3s ease-in-out infinite; font-size: 14px; }
+        @keyframes twinkle {
+            0%,100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        .container { position: relative; z-index: 1; width: 100%; max-width: 400px; }
+        .card {
+            background: linear-gradient(180deg, #1e1e3a 0%, #1a1a30 100%);
+            border-radius: 30px; padding: 30px 22px; text-align: center;
+            border: 2px solid rgba(255,215,0,0.3);
+            box-shadow: 0 20px 60px rgba(255,107,157,0.2), 0 0 100px rgba(255,215,0,0.1);
+        }
+        .crown { font-size: 60px; animation: bounce 2s ease-in-out infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        .badge {
+            display: inline-block; background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000; padding: 6px 16px; border-radius: 20px;
+            font-size: 11px; font-weight: 900; letter-spacing: 2px; margin: 8px 0;
+        }
+        .title { font-family: 'Pacifico', cursive; font-size: 28px; color: #ffd700; margin: 8px 0 2px; text-shadow: 0 0 20px rgba(255,215,0,0.4); }
+        .subtitle { font-size: 11px; color: #ff6b9d; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
+        .divider { width: 60%; height: 1px; background: linear-gradient(90deg, transparent, #ffd700, #ff6b9d, transparent); margin: 12px auto; }
+        .tariff-icon { font-size: 45px; margin: 10px 0; }
+        .tariff-name { font-size: 18px; color: #c084fc; font-weight: 700; }
+        .tariff-desc { font-size: 12px; color: #94a3b8; margin: 5px 0 15px; }
+        .price-box { background: rgba(255,215,0,0.05); border: 2px solid rgba(255,215,0,0.2); border-radius: 20px; padding: 15px; margin: 12px 0; }
+        .price { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 52px; color: #ffd700; }
+        .price span { font-size: 24px; }
+        .stars-price { font-size: 14px; color: #ff6b9d; margin-top: 5px; }
+        .features { text-align: left; margin: 15px 0; }
+        .feature { font-size: 13px; color: #c4b5fd; padding: 5px 0; display: flex; align-items: center; gap: 10px; }
+        .feature span { font-size: 18px; }
+        .btn {
+            display: block; width: 100%; border: none; border-radius: 20px;
+            padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 17px;
+            font-weight: 700; cursor: pointer; margin: 12px 0; transition: all 0.2s;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000; box-shadow: 0 8px 30px rgba(255,215,0,0.4);
+        }
+        .info-text { font-size: 11px; color: #64748b; margin: 10px 0; }
+        .info-text span { color: #4ade80; }
+        .back-link { display: block; color: #ff6b9d; text-decoration: none; font-size: 14px; margin-top: 15px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="crown">👑</div>
+            <div class="badge">⭐ Telegram Stars</div>
+            <div class="title">Premium</div>
+            <div class="subtitle">✨ оплата звёздами ✨</div>
+            <div class="divider"></div>
+
+            <div class="tariff-icon" id="tariffIcon">📅</div>
+            <div class="tariff-name" id="tariffName">Загрузка...</div>
+            <div class="tariff-desc" id="tariffDesc"></div>
+
+            <div class="price-box">
+                <div class="price" id="price">--<span>₽</span></div>
+                <div class="stars-price">⭐ <span id="starsAmount">--</span> звёзд</div>
+            </div>
+
+            <div class="features" id="features"></div>
+
+            <a class="btn btn-gold" id="payBtn" href="https://t.me/PodrugaTestBot">
+                ⭐ Оплатить звёздами
+            </a>
+
+            <div class="info-text">
+                <span>🔒</span> Безопасный платёж через Telegram<br>
+                ⚡ Премиум активируется мгновенно
+            </div>
+
+            <a href="https://t.me/PodrugaTestBot" class="back-link">← Вернуться в бот</a>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const tariff = params.get('tariff') || '24h';
+        const userId = params.get('user_id') || '0';
+        const price = parseInt(params.get('price')) || 0;
+
+        const data = {
+            '24h': { icon: '📅', name: 'На 24 часа', desc: 'Премиум на целый день!', features: ['♾️ Безлимитные тесты','📊 Ответы подруг','🎓 Золотой диплом','👥 Битвы до 10 подруг'] },
+            'week': { icon: '💎', name: 'На неделю', desc: 'Стань главной подругой!', features: ['♾️ Безлимитные тесты','📊 Ответы подруг','🎓 Золотой диплом','👥 Битвы до 10 подруг','💬 Чат после битвы','⭐ Бейдж Эксперт'] },
+            'forever': { icon: '👑', name: 'Навсегда', desc: 'Королева тестов!', features: ['ВСЁ что выше +','💖 Статус навсегда','👑 Бейдж Королевы','🎁 Приоритетная поддержка'] }
+        };
+        const d = data[tariff] || data['24h'];
+
+        document.getElementById('tariffIcon').textContent = d.icon;
+        document.getElementById('tariffName').textContent = d.name;
+        document.getElementById('tariffDesc').textContent = d.desc;
+        document.getElementById('price').innerHTML = price + '<span>₽</span>';
+        document.getElementById('starsAmount').textContent = price;
+
+        const featDiv = document.getElementById('features');
+        d.features.forEach(f => {
+            featDiv.innerHTML += `<div class="feature"><span>✨</span> ${f}</div>`;
+        });
+
+        // Звёздочки на фоне
+        const emojis = ['⭐','✨','💫','🌟','💛'];
+        const c = document.getElementById('stars');
+        for(let i=0;i<30;i++){
+            const s=document.createElement('span');
+            s.className='star';
+            s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+            s.style.left=Math.random()*100+'%';
+            s.style.top=Math.random()*100+'%';
+            s.style.animationDelay=Math.random()*3+'s';
+            s.style.fontSize=(12+Math.random()*16)+'px';
+            c.appendChild(s);
+        }
+    </script>
+</body>
+</html>
