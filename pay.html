@@ -16,41 +16,53 @@
             text-align: center; max-width: 350px; width: 100%;
             box-shadow: 0 20px 60px rgba(255,107,157,0.3);
         }
-        .spinner {
-            width: 50px; height: 50px; border: 4px solid #f0f0f0;
-            border-top-color: #ff6b9d; border-radius: 50%;
-            animation: spin 1s linear infinite; margin: 20px auto;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .text { font-size: 16px; color: #666; margin: 15px 0; }
         .btn {
             display: block; width: 100%; background: #ff6b9d; color: white;
-            border: none; border-radius: 15px; padding: 16px; font-size: 17px;
+            border: none; border-radius: 15px; padding: 18px; font-size: 18px;
             font-weight: 700; cursor: pointer; margin: 15px 0; text-decoration: none;
         }
+        .green { background: #00b894; }
+        .info { font-size: 14px; color: #666; line-height: 1.8; text-align: left; }
+        .info b { color: #ff6b9d; }
     </style>
 </head>
 <body>
     <div class="card">
         <div style="font-size:50px">💎</div>
-        <div class="text">Открываем платёж...</div>
-        <div class="spinner"></div>
-        <a class="btn" id="payLink" href="#">Оплатить через СБП</a>
-        <p style="font-size:12px;color:#999;">Если платёж не открылся — нажмите кнопку выше</p>
+        <h2 style="color:#ff6b9d">Premium</h2>
+        <p style="font-size:36px;font-weight:900;color:#1a1a2e" id="price">--₽</p>
+        
+        <a class="btn green" id="tbankLink" href="#">
+            💳 Оплатить через Т-Банк
+        </a>
+        
+        <p style="color:#999;font-size:13px;">или переведите вручную на номер:</p>
+        <p style="font-size:24px;font-weight:700;color:#1a1a2e;user-select:all;cursor:pointer;" onclick="copyPhone()">
+            8 952 433-02-00
+        </p>
+        <p style="font-size:14px;color:#666;">Сумма: <b id="amount">--₽</b></p>
+        
+        <a class="btn" href="https://t.me/PodrugaTestBot">
+            ✅ Я оплатил(а)
+        </a>
     </div>
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const price = parseInt(params.get('price')) || 0;
-        const tariff = params.get('tariff') || '';
-        const userId = params.get('user_id') || '0';
+        const p = new URLSearchParams(location.search);
+        const price = parseInt(p.get('price')) || 0;
+        const tariff = p.get('tariff') || '';
+        const uid = p.get('user_id') || '0';
         
-        // Прямая ссылка на СБП (Т-Банк, номер 89524330200)
-        const sbpUrl = `https://qr.nspk.ru/transfer?bank=tinkoff&sum=${price}&cur=RUB&phone=89524330200&desc=Premium${tariff}_${userId}`;
+        document.getElementById('price').textContent = price + '₽';
+        document.getElementById('amount').textContent = price + '₽';
         
-        document.getElementById('payLink').href = sbpUrl;
+        // Прямая ссылка на перевод в Т-Банке
+        document.getElementById('tbankLink').href = 
+            `https://www.tbank.ru/transfer/?to=89524330200&sum=${price}&text=Premium_${tariff}_${uid}`;
         
-        // Авто-редирект через 1.5 секунды
-        setTimeout(() => { window.location.href = sbpUrl; }, 1500);
+        function copyPhone() {
+            navigator.clipboard.writeText('89524330200');
+            alert('✅ Номер скопирован!');
+        }
     </script>
 </body>
 </html>
