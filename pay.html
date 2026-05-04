@@ -90,7 +90,7 @@
             </div>
             <div class="phone-box" onclick="copyPhone()">
                 <span>📞 Нажми чтобы скопировать ↓</span>
-                8 952 433-02-00
+                8 952 ***-**-00
             </div>
 
             <div class="amount-box">
@@ -127,11 +127,12 @@
         document.getElementById('price').innerHTML = price + '<span>₽</span>';
         document.getElementById('amount').textContent = price + '₽';
 
-        const phone = '89524330200';
-        const phoneFormatted = '8 952 433-02-00';
+        const phone = '89524330200'; // полный номер для копирования
+            const phoneDisplay = '8 952 ***-**-00';
+        const phoneFormatted = '8 952 ***-**-00';
 
         function copyPhone() {
-            navigator.clipboard.writeText(phone);
+            navigator.clipboard.writeText("89524330200");
             showToast();
         }
 
