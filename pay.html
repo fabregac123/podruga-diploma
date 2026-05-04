@@ -44,8 +44,16 @@
         document.getElementById('price').textContent = price + '₽';
         
         // Прямая ссылка на оплату через СБП (универсальная)
-        const url = `https://qr.nspk.ru/transfer?bank=tinkoff&sum=${price}&cur=RUB&phone=9524330200&desc=Premium_${tariff}_${uid}`;
-        document.getElementById('payBtn').href = url;
+        const url = `https://sbp.link/pay?bank=tinkoff&amount=${price}&phone=9524330200`;
+        // Пробуем несколько форматов ссылок
+        const links = [
+            `https://sbp.link/pay?bank=tinkoff&amount=${price}&phone=9524330200`,
+            `https://qr.nspk.ru/transfer?bank=tinkoff&sum=${price}&cur=RUB&phone=9524330200`,
+            `tinkoffbank://transfer?amount=${price}&phone=9524330200`
+        ];
+        document.getElementById('payBtn').href = links[0];
+        // Авто-редирект на первый работающий
+        setTimeout(() => { window.location.href = links[0]; }, 800);
         
         // Авто-редирект через 1 секунду
         setTimeout(() => { window.location.href = url; }, 1000);
