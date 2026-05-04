@@ -146,32 +146,14 @@
 
         function confirmPayment() {
             const btn = document.querySelector('.btn-green');
-            btn.textContent = '⏳ Проверяем...';
+            btn.textContent = '✅ Премиум активируется...';
+            btn.style.background = '#00b894';
             btn.disabled = true;
-
-            // Отправляем запрос на проверку платежа
-            fetch('http://147.45.216.121:8888', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ user_id: userId, amount: price, tariff: tariff })
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === 'ok') {
-                    btn.textContent = '✅ Премиум активирован!';
-                    btn.style.background = '#00b894';
-                    setTimeout(() => window.location.href = 'https://t.me/PodrugaTestBot', 1500);
-                } else {
-                    btn.textContent = '❌ Платёж не найден. Попробуй позже';
-                    btn.style.background = '#ff6b6b';
-                    btn.disabled = false;
-                }
-            })
-            .catch(() => {
-                btn.textContent = '⚠️ Напиши @fabregac123';
-                btn.style.background = '#ffa502';
-                btn.disabled = false;
-            });
+            
+            // Открываем бота — он проверит почту и начислит премиум
+            setTimeout(() => {
+                window.location.href = 'https://t.me/PodrugaTestBot';
+            }, 1000);
         }
     </script>
 </body>
